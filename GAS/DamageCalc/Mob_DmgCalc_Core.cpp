@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Mob_DmgCalc_Core.h"
-#include "../Private/Mob_2DChar.h"
+#include "../Private/Player/Mob_2DChar.h"
 //#include "AbilitySystemComponent.h"
 
 

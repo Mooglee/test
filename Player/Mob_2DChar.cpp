@@ -65,7 +65,7 @@ void AMob_2DChar::ClearAllAbilities()
 
 ///stats
 
-void AMob_2DChar::ApplyTalentChanges(FStruct_StatsHolder& Stats)
+void AMob_2DChar::ApplyTalentChanges(FStruct_StatsHolder& Stats, FGameplayTagContainer OwnedTalents)
 {
 	if (TempTree)
 	{
@@ -125,14 +125,13 @@ void AMob_2DChar::ApplyTalentChanges(FStruct_StatsHolder& Stats)
 	}
 }
 
-void AMob_2DChar::ApplyStatChanges(FStruct_StatsHolder& Stats)
+void AMob_2DChar::ApplyStatChanges(FStruct_StatsHolder& Stats, TArray<FStruct_ItemWrapper> Equipment)
 {
-	if (TempTree)
-	{
+
 		UE_LOG(LogTemp, Warning, TEXT("is valid"));
 
 		FStruct_StatsHolder StatsContainer;
-
+		
 		for (int32 Index = 0; Index != Equipment.Num(); ++Index) // for every talent add stats up
 		{
 
@@ -156,7 +155,7 @@ void AMob_2DChar::ApplyStatChanges(FStruct_StatsHolder& Stats)
 
 			StatsContainer.Accuracy += Equipment[Index].item->Accuracy;
 			StatsContainer.Evasion += Equipment[Index].item->Evasion;
-
+				
 			StatsContainer.CritRate += Equipment[Index].item->CritRate;
 			StatsContainer.CritDamage += Equipment[Index].item->CritDamage;
 
@@ -173,9 +172,8 @@ void AMob_2DChar::ApplyStatChanges(FStruct_StatsHolder& Stats)
 
 			StatsContainer.AttackSpeed += Equipment[Index].item->AttackSpeed;
 			StatsContainer.AttackSpeedModifier += Equipment[Index].item->AttackSpeedModifier;
-			}
 
-		Stats = StatsContainer;
+		Stats = StatsContainer; 
 	}
 }
 
@@ -194,7 +192,7 @@ void AMob_2DChar::ApplyStatsToGPE(TSubclassOf<UGameplayEffect> GPE, FStruct_Stat
 	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(GESH, FGameplayTag::RequestGameplayTag(TEXT("Equipment.Base.Energy"), false), Stats.EnergyMax);
 	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(GESH, FGameplayTag::RequestGameplayTag(TEXT("Equipment.Base.Energy.Regen"), false), Stats.EnergyRegen);
 
-	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(GESH, FGameplayTag::RequestGameplayTag(TEXT("Equipment.Base.Damage.Physical"), false), Stats.DamagePhysical);
+	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(GESH, FGameplayTag::RequestGameplayTag(TEXT("Equipment.Base.Damage.Phyiscal"), false), Stats.DamagePhysical);
 
 	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(GESH, FGameplayTag::RequestGameplayTag(TEXT("Equipment.Base.Damage.magical"), false), Stats.DamageMagical);
 

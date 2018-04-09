@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Mob_DA_Item.h"
+#include "../Private/DataAsset/Mob_DA_Item.h"
 #include "Mob_Struct_ItemWrapper.generated.h"
 
 /**

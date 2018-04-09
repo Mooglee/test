@@ -7,12 +7,11 @@
 #include "AbilitySystemInterface.h"
 #include "AttributeSet.h"
 #include "GameplayAbilitySpec.h"
-#include "DataAsset/Mob_DA_Item.h"
-#include "DataAsset/Mob_DA_TalentTree.h"
-#include "DataAsset/Mob_Struct_ItemWrapper.h"
+#include "../Private/DataAsset/Mob_DA_TalentTree.h"
 #include "Components/BoxComponent.h"
 #include "PaperFlipbookComponent.h"
-#include "Structs/Mob_Struct_StatsHolder.h"
+#include "Mob_AC_InventorySystem.h"
+#include "../Private/Structs/Mob_Struct_StatsHolder.h"
 
 #include "Mob_2DChar.generated.h"
 
@@ -52,22 +51,7 @@ public:
 	};
 	//
 
-	//temp
-
 	UMob_DA_TalentTree* TempTree = LoadObject<UMob_DA_TalentTree>(nullptr, TEXT("/Game/Paper2d/Core/Player/Talents/Warrior_Power/DA_TT_WarPower.DA_TT_WarPower"));
-
-	//equipment
-	UPROPERTY(BlueprintReadWrite, BlueprintType, EditAnywhere, Category = "Bags")
-		TArray<FStruct_ItemWrapper> Equipment;
-
-	UPROPERTY(BlueprintReadWrite, BlueprintType, EditAnywhere, Category = "Bags")
-		TArray<FStruct_ItemWrapper> Equipment_Bag;
-	UPROPERTY(BlueprintReadWrite, BlueprintType, EditAnywhere, Category = "Bags")
-		TArray<FStruct_ItemWrapper> Usable_Bag;
-	UPROPERTY(BlueprintReadWrite, BlueprintType, EditAnywhere, Category = "Bags")
-		TArray<FStruct_ItemWrapper> Crafting_Bag;
-
-	// equipment end
 
 
 	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadWrite)
@@ -76,8 +60,6 @@ public:
 	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadWrite)
 		UPaperFlipbookComponent* Sprite;
 	
-	UPROPERTY(Category = Talents, EditAnywhere, BlueprintReadWrite)
-		FGameplayTagContainer OwnedTalents;
 
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Combat")
@@ -122,9 +104,9 @@ public:
 		void ApplyStatsToGPE(TSubclassOf<UGameplayEffect> GPE, FStruct_StatsHolder Stats);
 
 	UFUNCTION(BlueprintCallable, Category = "Talents")
-		void ApplyTalentChanges(FStruct_StatsHolder& Stats);
+		void ApplyTalentChanges(FStruct_StatsHolder& Stats, FGameplayTagContainer OwnedTalents);
 	UFUNCTION(BlueprintCallable, Category = "Talents")
-		void ApplyStatChanges(FStruct_StatsHolder& Stats);
+		void ApplyStatChanges(FStruct_StatsHolder& Stats, TArray<FStruct_ItemWrapper> Equipment);
 
 	UFUNCTION(BlueprintCallable, Category = "Abilities")
 		virtual void GiveAbility(TSubclassOf<class UGameplayAbility> AbilityGiven, int32 ID, FGameplayAbilitySpecHandle &AbilityHandle);
